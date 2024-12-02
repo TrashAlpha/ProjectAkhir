@@ -4,7 +4,22 @@ public class SortingNilai {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // Opsi pilihan
+        System.out.println("======================================");
+        System.out.println("=========== Selamat Datang ===========");
+        System.out.println("======= Program Sorting Nilai ========");
+        System.out.println("======================================");
+
+        System.out.println("\nSilakan pilih opsi sorting:");
+        System.out.println("1. Sorting berdasar nilai");
+        System.out.println("2. Sorting berdasar nama");
+        System.out.println("3. Sorting berdasarkan nilai & nama");
+        System.out.print("Pilihan Anda (1/2/3): ");
+        
+        int p = scanner.nextInt();
+        
         // Input jumlah mahasiswa
+        System.out.println("\n======================================");
         System.out.print("Masukkan jumlah mahasiswa: ");
         int n = scanner.nextInt();
         scanner.nextLine(); // Mengonsumsi newline
@@ -21,23 +36,31 @@ public class SortingNilai {
             grades[i] = scanner.nextInt();
             scanner.nextLine(); // Mengonsumsi newline
         }
+        System.out.println("======================================");
 
-        // Mengurutkan data berdasarkan nilai menggunakan Insertion Sort
-        insertionSort(names, grades);
-        System.out.println("\nData setelah sorting berdasarkan nilai:");
-        printStudentData(names, grades);
-
-        // Memilih apakah ingin mengurutkan berdasarkan nama
-        System.out.print("\nApakah Anda ingin mengurutkan berdasarkan nama? (ya/tidak): ");
-        String choice = scanner.nextLine().toLowerCase();
-
-        if (choice.equals("ya")) {
-            bubbleSort(names, grades);
-            System.out.println("\nData setelah sorting berdasarkan nama:");
-            printStudentData(names, grades);
-        } else {
-            System.out.println("\nData tidak diurutkan berdasarkan nama.");
+        // Pilihan sorting berdasarkan input pengguna
+        switch (p) {
+            case 1:
+                insertionSort(names, grades);
+                System.out.println("\nData setelah sorting berdasarkan nilai:");
+                break;
+            case 2:
+                bubbleSortByName(names, grades);
+                System.out.println("\nData setelah sorting berdasarkan nama:");
+                break;
+            case 3:
+                insertionSort(names, grades);
+                bubbleSortByNameWithinSameGrade(names, grades);
+                System.out.println("\nData setelah sorting berdasarkan nilai & nama:");
+                break;
+            default:
+                System.out.println("\nPilihan tidak valid.");
+                scanner.close();
+                return;
         }
+
+        // Menampilkan data hasil sorting
+        printStudentData(names, grades);
 
         // Menutup scanner
         scanner.close();
@@ -64,28 +87,49 @@ public class SortingNilai {
         }
     }
 
+    // Bubble Sort untuk mengurutkan nama
+    public static void bubbleSortByName(String[] names, int[] grades) {
+        int n = names.length;
+        boolean swapped;
+
+        do {
+            swapped = false;
+            for (int i = 0; i < n - 1; i++) {
+                if (names[i].compareToIgnoreCase(names[i + 1]) > 0) {
+                    // Tukar nama
+                    String tempName = names[i];
+                    names[i] = names[i + 1];
+                    names[i + 1] = tempName;
+
+                    // Tukar nilai agar sinkron
+                    int tempGrade = grades[i];
+                    grades[i] = grades[i + 1];
+                    grades[i + 1] = tempGrade;
+
+                    swapped = true;
+                }
+            }
+        } while (swapped);
+    }
+
     // Bubble Sort untuk mengurutkan nama dalam kelompok nilai yang sama
-    public static void bubbleSort(String[] names, int[] grades) {
+    public static void bubbleSortByNameWithinSameGrade(String[] names, int[] grades) {
         int n = names.length;
         boolean swapped;
         
         do {
             swapped = false;
             for (int i = 0; i < n - 1; i++) {
-                // Hanya tukar jika nilai sama dan nama[i] lebih besar dari nama[i+1]
                 if (grades[i] == grades[i + 1] && names[i].compareToIgnoreCase(names[i + 1]) > 0) {
                     // Tukar nama
                     String tempName = names[i];
                     names[i] = names[i + 1];
                     names[i + 1] = tempName;
-                    
-                    // Menandai bahwa ada pertukaran
                     swapped = true;
                 }
             }
         } while (swapped);
     }
-    
 
     // Fungsi untuk mencetak data mahasiswa
     public static void printStudentData(String[] names, int[] grades) {
