@@ -19,7 +19,7 @@ public class SortingNilai {
             System.out.print("Pilihan Anda (1/2/3/4): ");
             
             int p = scanner.nextInt();
-            scanner.nextLine(); // Konsumsi newline
+            scanner.nextLine();
 
             if (p == 4) {
                 System.out.println("\nTerima kasih telah menggunakan program ini. Sampai jumpa!");
@@ -30,7 +30,7 @@ public class SortingNilai {
             System.out.println("\n======================================");
             System.out.print("Masukkan jumlah mahasiswa: ");
             int n = scanner.nextInt();
-            scanner.nextLine(); // Konsumsi newline
+            scanner.nextLine();
 
             // Array untuk menyimpan nama dan nilai mahasiswa
             String[] names = new String[n];
@@ -42,7 +42,7 @@ public class SortingNilai {
                 names[i] = scanner.nextLine();
                 System.out.print("Nilai mahasiswa ke-" + (i + 1) + ": ");
                 grades[i] = scanner.nextInt();
-                scanner.nextLine(); // Konsumsi newline
+                scanner.nextLine();
             }
             System.out.println("======================================");
 
