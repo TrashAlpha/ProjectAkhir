@@ -22,7 +22,7 @@ public class SortingNilai {
         System.out.println("\n======================================");
         System.out.print("Masukkan jumlah mahasiswa: ");
         int n = scanner.nextInt();
-        scanner.nextLine(); // Mengonsumsi newline
+        scanner.nextLine();
 
         // Array untuk menyimpan nama dan nilai mahasiswa
         String[] names = new String[n];
@@ -34,7 +34,7 @@ public class SortingNilai {
             names[i] = scanner.nextLine();
             System.out.print("Nilai mahasiswa ke-" + (i + 1) + ": ");
             grades[i] = scanner.nextInt();
-            scanner.nextLine(); // Mengonsumsi newline
+            scanner.nextLine();
         }
         System.out.println("======================================");
 
@@ -45,12 +45,12 @@ public class SortingNilai {
                 System.out.println("\nData setelah sorting berdasarkan nilai:");
                 break;
             case 2:
-                bubbleSortByName(names, grades);
+                selectionSort(names, grades);
                 System.out.println("\nData setelah sorting berdasarkan nama:");
                 break;
             case 3:
                 insertionSort(names, grades);
-                bubbleSortByNameWithinSameGrade(names, grades);
+                bubbleSort(names, grades);
                 System.out.println("\nData setelah sorting berdasarkan nilai & nama:");
                 break;
             default:
@@ -62,11 +62,10 @@ public class SortingNilai {
         // Menampilkan data hasil sorting
         printStudentData(names, grades);
 
-        // Menutup scanner
         scanner.close();
     }
 
-    // Insertion Sort untuk mengurutkan nilai dan nama
+    // Insertion Sort untuk mengurutkan nilai
     public static void insertionSort(String[] names, int[] grades) {
         int n = grades.length;
         for (int i = 1; i < n; i++) {
@@ -74,46 +73,42 @@ public class SortingNilai {
             String keyName = names[i];
             int j = i - 1;
 
-            // Pindahkan elemen grades[j] yang lebih besar dari keyGrade ke satu posisi ke depan
             while (j >= 0 && grades[j] > keyGrade) {
                 grades[j + 1] = grades[j];
                 names[j + 1] = names[j];
                 j--;
             }
 
-            // Letakkan keyGrade dan keyName di posisi yang sesuai
             grades[j + 1] = keyGrade;
             names[j + 1] = keyName;
         }
     }
 
-    // Bubble Sort untuk mengurutkan nama
-    public static void bubbleSortByName(String[] names, int[] grades) {
+    // Selection Sort untuk mengurutkan nama
+    public static void selectionSort(String[] names, int[] grades) {
         int n = names.length;
-        boolean swapped;
-
-        do {
-            swapped = false;
-            for (int i = 0; i < n - 1; i++) {
-                if (names[i].compareToIgnoreCase(names[i + 1]) > 0) {
-                    // Tukar nama
-                    String tempName = names[i];
-                    names[i] = names[i + 1];
-                    names[i + 1] = tempName;
-
-                    // Tukar nilai agar sinkron
-                    int tempGrade = grades[i];
-                    grades[i] = grades[i + 1];
-                    grades[i + 1] = tempGrade;
-
-                    swapped = true;
+        
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (names[j].compareToIgnoreCase(names[minIndex]) < 0) {
+                    minIndex = j;
                 }
             }
-        } while (swapped);
+
+            String tempName = names[minIndex];
+            names[minIndex] = names[i];
+            names[i] = tempName;
+
+            int tempGrade = grades[minIndex];
+            grades[minIndex] = grades[i];
+            grades[i] = tempGrade;
+        }
     }
 
+
     // Bubble Sort untuk mengurutkan nama dalam kelompok nilai yang sama
-    public static void bubbleSortByNameWithinSameGrade(String[] names, int[] grades) {
+    public static void bubbleSort(String[] names, int[] grades) {
         int n = names.length;
         boolean swapped;
         
@@ -121,7 +116,6 @@ public class SortingNilai {
             swapped = false;
             for (int i = 0; i < n - 1; i++) {
                 if (grades[i] == grades[i + 1] && names[i].compareToIgnoreCase(names[i + 1]) > 0) {
-                    // Tukar nama
                     String tempName = names[i];
                     names[i] = names[i + 1];
                     names[i + 1] = tempName;
