@@ -3,64 +3,73 @@ import java.util.*;
 public class SortingNilai {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // Opsi pilihan
         System.out.println("======================================");
         System.out.println("=========== Selamat Datang ===========");
         System.out.println("======= Program Sorting Nilai ========");
-        System.out.println("======================================");
 
-        System.out.println("\nSilakan pilih opsi sorting:");
-        System.out.println("1. Sorting berdasar nilai");
-        System.out.println("2. Sorting berdasar nama");
-        System.out.println("3. Sorting berdasarkan nilai & nama");
-        System.out.print("Pilihan Anda (1/2/3): ");
-        
-        int p = scanner.nextInt();
-        
-        // Input jumlah mahasiswa
-        System.out.println("\n======================================");
-        System.out.print("Masukkan jumlah mahasiswa: ");
-        int n = scanner.nextInt();
-        scanner.nextLine();
+        // Loop utama program
+        while (true) {
+            // Opsi pilihan
+            System.out.println("======================================");
+            System.out.println("\nSilakan pilih opsi sorting:");
+            System.out.println("1. Sorting berdasar nilai");
+            System.out.println("2. Sorting berdasar nama");
+            System.out.println("3. Sorting berdasarkan nilai & nama");
+            System.out.println("4. Keluar");
+            System.out.print("Pilihan Anda (1/2/3/4): ");
+            
+            int p = scanner.nextInt();
+            scanner.nextLine(); // Konsumsi newline
 
-        // Array untuk menyimpan nama dan nilai mahasiswa
-        String[] names = new String[n];
-        int[] grades = new int[n];
+            if (p == 4) {
+                System.out.println("\nTerima kasih telah menggunakan program ini. Sampai jumpa!");
+                break; // Keluar dari loop
+            }
 
-        // Input data mahasiswa
-        for (int i = 0; i < n; i++) {
-            System.out.print("Nama mahasiswa ke-" + (i + 1) + " : ");
-            names[i] = scanner.nextLine();
-            System.out.print("Nilai mahasiswa ke-" + (i + 1) + ": ");
-            grades[i] = scanner.nextInt();
-            scanner.nextLine();
+            // Input jumlah mahasiswa
+            System.out.println("\n======================================");
+            System.out.print("Masukkan jumlah mahasiswa: ");
+            int n = scanner.nextInt();
+            scanner.nextLine(); // Konsumsi newline
+
+            // Array untuk menyimpan nama dan nilai mahasiswa
+            String[] names = new String[n];
+            int[] grades = new int[n];
+
+            // Input data mahasiswa
+            for (int i = 0; i < n; i++) {
+                System.out.print("Nama mahasiswa ke-" + (i + 1) + " : ");
+                names[i] = scanner.nextLine();
+                System.out.print("Nilai mahasiswa ke-" + (i + 1) + ": ");
+                grades[i] = scanner.nextInt();
+                scanner.nextLine(); // Konsumsi newline
+            }
+            System.out.println("======================================");
+
+            // Pilihan sorting berdasarkan input pengguna
+            switch (p) {
+                case 1:
+                    insertionSort(names, grades);
+                    System.out.println("\nData setelah sorting berdasarkan nilai:");
+                    break;
+                case 2:
+                    selectionSort(names, grades);
+                    System.out.println("\nData setelah sorting berdasarkan nama:");
+                    break;
+                case 3:
+                    insertionSort(names, grades);
+                    bubbleSort(names, grades);
+                    System.out.println("\nData setelah sorting berdasarkan nilai & nama:");
+                    break;
+                default:
+                    System.out.println("\nPilihan tidak valid.");
+                    continue;
+            }
+
+            // Menampilkan data hasil sorting
+            printStudentData(names, grades);
+            System.out.println();
         }
-        System.out.println("======================================");
-
-        // Pilihan sorting berdasarkan input pengguna
-        switch (p) {
-            case 1:
-                insertionSort(names, grades);
-                System.out.println("\nData setelah sorting berdasarkan nilai:");
-                break;
-            case 2:
-                selectionSort(names, grades);
-                System.out.println("\nData setelah sorting berdasarkan nama:");
-                break;
-            case 3:
-                insertionSort(names, grades);
-                bubbleSort(names, grades);
-                System.out.println("\nData setelah sorting berdasarkan nilai & nama:");
-                break;
-            default:
-                System.out.println("\nPilihan tidak valid.");
-                scanner.close();
-                return;
-        }
-
-        // Menampilkan data hasil sorting
-        printStudentData(names, grades);
 
         scanner.close();
     }
@@ -105,7 +114,6 @@ public class SortingNilai {
             grades[i] = tempGrade;
         }
     }
-
 
     // Bubble Sort untuk mengurutkan nama dalam kelompok nilai yang sama
     public static void bubbleSort(String[] names, int[] grades) {
