@@ -1,0 +1,3 @@
+Program Sorting Nilai
+
+Aplikasi ini merupakan program berbasis konsol yang ditulis dalam bahasa Java untuk mengelola dan mengurutkan daftar mahasiswa berdasarkan nama dan nilai. Pengguna dapat menambahkan nama dan nilai mahasiswa ke dalam program, kemudian menyortir daftar mahasiswa tersebut berdasarkan kriteria tertentu seperti berdasar nilai, nama, atau keduanya. Aplikasi ini mendukung tiga algoritma sorting: Bubble Sort, Insertion Sort, dan Selection Sort. Bubble Sort digunakan untuk mengurutkan nilai dan nama, Insertion Sort digunakan untuk mengurutkan nilai, dan Selection Sort digunakan untuk mengurutkan nama. Selain itu, sorting dilakukan secara ascending.
